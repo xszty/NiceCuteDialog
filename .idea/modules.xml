@@ -3,12 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NiceCuteDialog.iml" filepath="$PROJECT_DIR$/NiceCuteDialog.iml" />
-      <module fileurl="file://E:\A_yh_work\mycode\NiceCuteDialog\NiceCuteDialog.iml" filepath="E:\A_yh_work\mycode\NiceCuteDialog\NiceCuteDialog.iml" />
       <module fileurl="file://E:\A_yh_work\mycode\NiceCuteDialog\NiceSweetDialog.iml" filepath="E:\A_yh_work\mycode\NiceCuteDialog\NiceSweetDialog.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\A_yh_work\mycode\NiceCuteDialog\app\app.iml" filepath="E:\A_yh_work\mycode\NiceCuteDialog\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://E:\A_yh_work\mycode\NiceCuteDialog\library\library.iml" filepath="E:\A_yh_work\mycode\NiceCuteDialog\library\library.iml" />
     </modules>
   </component>
 </project>

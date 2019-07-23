@@ -38,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
 		new SweetAlertDialog(MainActivity.this)
 			.setTitleText("是否检修完成？")
 			.setBottomCbTv("是否入库")
-			.setConfirmButton("是", (sweetAlertDialog, selected) -> {
-				if(selected){
-					Log.e("xxx","选择了入库");
-				}else{
-					Log.e("xxx","不入库");
+			.setConfirmButton("是", new SweetAlertDialog.OnSweetClickListener() {
+				@Override public void onClick(SweetAlertDialog sweetAlertDialog, boolean selected) {
+					if (selected) {
+						Log.e("xxx", "选择了入库");
+					} else {
+						Log.e("xxx", "不入库");
+					}
 				}
 			})
 			.setCancelButton("否", (sweetAlertDialog, selected) -> {
