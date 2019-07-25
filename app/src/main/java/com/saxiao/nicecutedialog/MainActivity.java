@@ -2,10 +2,10 @@ package com.saxiao.nicecutedialog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import com.saxiao.library.dialog.DialogItemType;
 import com.saxiao.library.dialog.InfoBean;
 import com.saxiao.library.dialog.SweetAlertDialog;
+import com.saxiao.library.dialog.SweetAlertType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,30 +27,26 @@ public class MainActivity extends AppCompatActivity {
 		//	.setCloseButton(sweetAlertDialog -> sweetAlertDialog.dismissWithAnimation())
 		//	.show();
 
-		//new SweetAlertDialog(MainActivity.this,SweetAlertType.WARNING_TYPE)
-		//	.setTitleText("dsdsaf")
-		//	.setConfirmButton("是", sweetAlertDialog -> {
-		//		Log.e("xxxx","zzszzzzzz");
-		//		sweetAlertDialog.dismissWithAnimation();
-		//	})
-		//	.setCancelButton("否", sweetAlertDialog -> sweetAlertDialog.dismissWithAnimation())
-		//	.show();
-		new SweetAlertDialog(MainActivity.this)
-			.setTitleText("是否检修完成？")
-			.setBottomCbTv("是否入库")
-			.setConfirmButton("是", new SweetAlertDialog.OnSweetClickListener() {
-				@Override public void onClick(SweetAlertDialog sweetAlertDialog, boolean selected) {
-					if (selected) {
-						Log.e("xxx", "选择了入库");
-					} else {
-						Log.e("xxx", "不入库");
-					}
-				}
-			})
-			.setCancelButton("否", (sweetAlertDialog, selected) -> {
-
-			})
+		new SweetAlertDialog(MainActivity.this, SweetAlertType.WARNING_TYPE)
+			.setTitleText("sds")
+			.setContentText("sdsdsd")
 			.show();
+		//new SweetAlertDialog(MainActivity.this)
+		//	.setTitleText("是否检修完成？")
+		//	.setBottomCbTv("是否入库")
+		//	.setConfirmButton("是", new SweetAlertDialog.OnSweetClickListener() {
+		//		@Override public void onClick(SweetAlertDialog sweetAlertDialog, boolean selected) {
+		//			if (selected) {
+		//				Log.e("xxx", "选择了入库");
+		//			} else {
+		//				Log.e("xxx", "不入库");
+		//			}
+		//		}
+		//	})
+		//	.setCancelButton("否", (sweetAlertDialog, selected) -> {
+		//
+		//	})
+		//	.show();
 	}
 
 	/**
