@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
 		//	.setCloseButton(sweetAlertDialog -> sweetAlertDialog.dismissWithAnimation())
 		//	.show();
 
-		new SweetAlertDialog(MainActivity.this, SweetAlertType.WARNING_TYPE)
-			.setTitleText("sds")
-			.setContentText("sdsdsd")
-			.show();
+		//new SweetAlertDialog(MainActivity.this, SweetAlertType.WARNING_TYPE)
+		//	.setTitleText("sds")
+		//	.setContentText("sdsdsd")
+		//	.show();
 		//new SweetAlertDialog(MainActivity.this)
 		//	.setTitleText("是否检修完成？")
 		//	.setBottomCbTv("是否入库")
@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
 		//
 		//	})
 		//	.show();
+		SweetAlertDialog progressDialog = new SweetAlertDialog(MainActivity.this, SweetAlertType.PROGRESS_TYPE);
+		progressDialog.setTitleText("标题")
+			.show();
+		progressDialog.setConfirmText("确认")
+			.setConfirmClickListener((sweetAlertDialog, selected) -> progressDialog.dismissWithAnimation())
+			.changeAlertType(SweetAlertType.SUCCESS_TYPE);
 	}
 
 	/**
