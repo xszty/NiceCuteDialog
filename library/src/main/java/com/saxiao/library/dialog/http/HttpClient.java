@@ -54,6 +54,7 @@ public class HttpClient {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 //是否错误重连
                 .retryOnConnectionFailure(true)
+	            .addInterceptor(InterceptorUtil.LogInterceptor())
                 .build();
 
         retrofit=new Retrofit.Builder()

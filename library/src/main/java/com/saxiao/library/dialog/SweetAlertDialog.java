@@ -290,7 +290,6 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 	}
 
 	private void changeAlertType(SweetAlertType alertType, boolean fromCreate) {
-		Log.e("xxxx","changetype");
 		mAlertAlertType = alertType;
 		// call after created views
 		if (mDialogView != null) {
