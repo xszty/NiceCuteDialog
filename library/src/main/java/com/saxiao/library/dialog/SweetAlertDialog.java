@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +93,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 	 * 查询按钮
 	 */
 	private Button mBtnSearch;
+	private Button mBtnReset;
 	private String mBtnSearchText;
+	private String mBtnResetText;
 	private ImageView mBtnClose;
 	/**
 	 * 查询标题
@@ -102,6 +103,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 	private TextView mSearchTitle;
 	private String mSearchTitleText;
 	private OnSendSearchDataListener mSearchDataListener;
+	private OnSendResetDataListener mResetDataListener;
 	/**
 	 * 正常布局
 	 */
@@ -131,6 +133,13 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 	 * 查询条件返回值
 	 */
 	public interface OnSendSearchDataListener{
+		void onClick(List<InfoBean> list,SweetAlertDialog sweetAlertDialog);
+	}
+
+	/**
+	 * 重置
+	 */
+	public interface OnSendResetDataListener{
 		void onClick(List<InfoBean> list,SweetAlertDialog sweetAlertDialog);
 	}
 
@@ -223,7 +232,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 
 		mllDialog = findViewById(R.id.ll_dialog);
 		mBtnSearch = findViewById(R.id.btn_dialog);
+		mBtnReset = findViewById(R.id.btn_reset);
 		mBtnSearch.setOnClickListener(this);
+		mBtnReset.setOnClickListener(this);
 		mBtnClose = findViewById(R.id.close);
 		mBtnClose.setOnClickListener(this);
 		mSearchTitle = findViewById(R.id.search_title);
@@ -242,6 +253,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		initLayout(mInfoList);
 		setSearchTitleText(mSearchTitleText);
 		setSearchBtnText(mBtnSearchText);
+		setResetBtnText(mBtnResetText);
 
 	}
 
@@ -449,6 +461,11 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		return this;
 	}
 
+	public SweetAlertDialog setResetClickListener(OnSendResetDataListener listener) {
+		mResetDataListener = listener;
+		return this;
+	}
+
 	public SweetAlertDialog setNeutralText(String text) {
 		mNeutralText = text;
 		if (mNeutralButton != null && mNeutralText != null && !text.isEmpty()) {
@@ -604,7 +621,13 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 			}else{
 				dismissWithAnimation();
 			}
-		} else if(v.getId() == R.id.close){
+		} else if(v.getId() == R.id.btn_reset){
+			if(mResetDataListener != null){
+				mResetDataListener.onClick(mInfoList,SweetAlertDialog.this);
+			}else{
+				dismissWithAnimation();
+			}
+		}else if(v.getId() == R.id.close){
 			if (mCancelClickListener != null) {
 				mCancelClickListener.onClick(SweetAlertDialog.this,false);
 			} else {
@@ -645,12 +668,20 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 	}
 
 	/**
-	 * 查询条件布局的按钮文字
+	 * 查询条件布局的确定按钮
 	 */
 	public SweetAlertDialog setSearchButton(String text, OnSendSearchDataListener listener) {
-		Log.e("xxx","setSearchButton");
 		this.setSearchBtnText(text);
 		this.setSearchClickListener(listener);
+		return this;
+	}
+
+	/**
+	 * 查询条件布局的重置按钮
+	 */
+	public SweetAlertDialog setResetButton(String text, OnSendResetDataListener listener) {
+		this.setSearchBtnText(text);
+		this.setResetClickListener(listener);
 		return this;
 	}
 
@@ -663,6 +694,13 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		mBtnSearchText = text;
 		if (mBtnSearch != null && mBtnSearchText != null) {
 			mBtnSearch.setText(mBtnSearchText);
+		}
+		return this;
+	}
+	public SweetAlertDialog setResetBtnText(String text) {
+		mBtnResetText = text;
+		if (mBtnReset != null && mBtnResetText != null) {
+			mBtnReset.setText(mBtnResetText);
 		}
 		return this;
 	}

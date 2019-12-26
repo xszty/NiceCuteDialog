@@ -77,6 +77,19 @@ public class MainActivity extends AppCompatActivity {
 					}
 				}
 			})
+			.setResetButton("重置", new SweetAlertDialog.OnSendResetDataListener() {
+				@Override public void onClick(List<InfoBean> list, SweetAlertDialog sweetAlertDialog) {
+					//重置
+					sn = "";
+					stockstate = "";
+					stockStateText = "";
+					relsn = "";
+					planstockdtStart = "";
+					planstockdtEnd = "";
+					sweetAlertDialog.dismissWithAnimation();
+					showSearchDialog();
+				}
+			})
 			.setCloseButton((sweetAlertDialog, selected) -> sweetAlertDialog.dismissWithAnimation())
 			.show();
 	}
