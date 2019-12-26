@@ -14,8 +14,9 @@ public class InfoBean implements Parcelable {
 	private int itemType;
 	private String title;
 	private String text;
-	private String value;
 	private String key;
+	private String value;
+
 
 	/**
 	 * @param itemType 类型
@@ -62,6 +63,7 @@ public class InfoBean implements Parcelable {
 	public void setValue(String value) {
 		this.value = value;
 	}
+
 
 	public String getKey() {
 		return key;

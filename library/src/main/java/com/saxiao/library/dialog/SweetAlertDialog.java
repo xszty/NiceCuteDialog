@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -587,7 +588,6 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 				if(mCbox!=null){
 					selected = mCbox.isSelected();
 				}
-				Log.e("xxxx","select--->"+selected);
 				mConfirmClickListener.onClick(SweetAlertDialog.this,selected);
 			} else {
 				dismissWithAnimation();
@@ -765,7 +765,12 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		view.setBackground(null);
 		view.setTextSize(12);
 		view.setTextColor(ContextCompat.getColor(this.getContext(),R.color.t_4));
-		view.setHint(infoBeans.get(i).getText());
+		if(TextUtils.isEmpty(infoBeans.get(i).getValue())){
+			view.setHint(infoBeans.get(i).getText());
+		}else{
+			view.setText(infoBeans.get(i).getValue());
+		}
+
 		TextWatcher textWatcher = new TextWatcher() {
 			@Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -793,8 +798,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		view.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.dialog_background));
 		List<String> items = Arrays.asList(infoBeans.get(i).getText().split(","));
 		view.setItems(items);
+		view.setSelectedIndex(0);
 		for(int x = 0;x<items.size();x++){
-			if(infoBeans.get(x).getValue().equals(infoBeans.get(i).getValue())){
+			if(items.get(x).equals(infoBeans.get(i).getValue())){
 				view.setSelectedIndex(x);
 			}
 		}
@@ -803,7 +809,12 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		view.getPopupWindow().getBackground().setColorFilter(ContextCompat.getColor(this.getContext(),R.color.dialog_background), PorterDuff.Mode.SRC_IN);
 		view.setTextSize(12);
 		view.setTextColor(ContextCompat.getColor(this.getContext(),R.color.t_4));
-		view.setOnItemSelectedListener((view1, position, id, item) -> infoBeans.get(i).setValue(items.get(position)));
+		infoBeans.get(i).setValue(items.get(0));
+		view.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+			@Override public void onItemSelected(MaterialSpinner view1, int position, long id, Object item) {
+				infoBeans.get(i).setValue(items.get(position));
+			}
+		});
 		viewLayoutParams.height = 120;
 		return view;
 	}
@@ -819,8 +830,12 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		viewLayoutParams.bottomMargin = 5;
 		view.setGravity(Gravity.CENTER);
 		view.setTextSize(12);
-		view.setText("请选择日期");
 		view.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.time, 0, 0, 0);
+		if(TextUtils.isEmpty(infoBeans.get(i).getValue())){
+			view.setText(infoBeans.get(i).getText());
+		}else{
+			view.setText(infoBeans.get(i).getValue());
+		}
 
 		view.setOnClickListener(view1 -> {
 			Calendar c = Calendar.getInstance();
