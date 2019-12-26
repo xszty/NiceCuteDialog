@@ -793,6 +793,11 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		view.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.dialog_background));
 		List<String> items = Arrays.asList(infoBeans.get(i).getText().split(","));
 		view.setItems(items);
+		for(int x = 0;x<items.size();x++){
+			if(infoBeans.get(x).getValue().equals(infoBeans.get(i).getValue())){
+				view.setSelectedIndex(x);
+			}
+		}
 		view.setBackgroundColor(ContextCompat.getColor(this.getContext(),R.color.black_8));
 		//设置下拉列表颜色
 		view.getPopupWindow().getBackground().setColorFilter(ContextCompat.getColor(this.getContext(),R.color.dialog_background), PorterDuff.Mode.SRC_IN);
