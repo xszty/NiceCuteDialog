@@ -2,6 +2,7 @@ package com.saxiao.nicecutedialog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.saxiao.library.dialog.DialogItemType;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 							break;
 					}
 				}
+				Log.e("xxxxx",""+sn+"//"+stockstate+"//"+relsn+"//"+planstockdtStart+"//"+planstockdtEnd);
 			})
 			.setResetButton("重置", new SweetAlertDialog.OnSendResetDataListener() {
 				@Override public void onClick(List<InfoBean> list, SweetAlertDialog sweetAlertDialog) {

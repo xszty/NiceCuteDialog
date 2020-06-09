@@ -680,7 +680,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 	 * 查询条件布局的重置按钮
 	 */
 	public SweetAlertDialog setResetButton(String text, OnSendResetDataListener listener) {
-		this.setSearchBtnText(text);
+		this.setResetBtnText(text);
 		this.setResetClickListener(listener);
 		return this;
 	}

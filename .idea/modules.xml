@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NiceCuteDialog.iml" filepath="$PROJECT_DIR$/NiceCuteDialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NiceCuteDialog.iml" filepath="$PROJECT_DIR$/NiceCuteDialog.iml" group="NiceCuteDialog" />
       <module fileurl="file://$PROJECT_DIR$/../../NiceCuteDialog/NiceSweetDialog.iml" filepath="$PROJECT_DIR$/../../NiceCuteDialog/NiceSweetDialog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="NiceCuteDialog/app" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" group="NiceCuteDialog/library" />
     </modules>
   </component>
 </project>
