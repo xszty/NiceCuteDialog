@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:minWidth="@dimen/alert_width"
@@ -93,8 +93,8 @@
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 		    android:gravity="center"
-		    android:paddingTop="20dp"
-		    android:paddingBottom="20dp"
+		    android:paddingTop="10dp"
+		    android:paddingBottom="10dp"
 		    android:orientation="vertical"
 		    >
 		    <ImageView
@@ -174,7 +174,7 @@
 			    android:layout_width="35dp"
 			    android:layout_height="35dp"
 			    android:layout_marginTop="8dp"
-			    android:visibility="gone">
+			    android:visibility="visible">
 
 			    <View
 				    android:layout_width="match_parent"
@@ -211,7 +211,7 @@
 			    android:id="@+id/title_text"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:layout_marginTop="4dp"
+			    android:layout_marginTop="15dp"
 			    android:gravity="center"
 			    android:paddingLeft="10dp"
 			    android:paddingRight="10dp"
@@ -244,6 +244,7 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:gravity="center"
+			    android:layout_marginTop="15dp"
 			    android:paddingBottom="8dp"
 			    android:paddingTop="8dp"
 			    android:visibility="visible">

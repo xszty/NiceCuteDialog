@@ -27,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
+		//SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this,SweetAlertType.WARNING_TYPE);
+		//sweetAlertDialog.setTitleText("确定退出？");
+		//sweetAlertDialog.show();
+
+		SweetAlertDialog s = new SweetAlertDialog(this,SweetAlertType.PROGRESS_TYPE);
+		s.show();
 	}
 
 	/**
