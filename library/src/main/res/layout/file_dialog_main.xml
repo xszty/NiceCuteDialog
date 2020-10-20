@@ -42,8 +42,8 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@+id/fdLinearLayoutList">
-        <TextView android:id="@+id/fdPrompt" style="@style/item" />
-        <TextView android:id="@+id/fdPath" style="@style/item" />
+<!--        <TextView android:id="@+id/fdPrompt" style="@style/item" />-->
+<!--        <TextView android:id="@+id/fdPath" style="@style/item" />-->
         <ListView android:id="@android:id/list" android:layout_width="fill_parent" android:layout_height="fill_parent" />
         <TextView android:id="@android:id/empty" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="@string/file_dialog_no_data" />
     </LinearLayout>
