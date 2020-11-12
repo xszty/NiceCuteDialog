@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -92,12 +93,12 @@ public class DeviceAuthIdUtil {
 			//获取IMSI号
 			String imsi=telephonyManager.getSubscriberId();
 			if(null==imsi){
-				imsi="";
+				imsi="111";
 			}
 			return imsi;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "";
+			return "111";
 		}
 	}
 
@@ -158,7 +159,7 @@ public class DeviceAuthIdUtil {
 		androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
 		UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
-		android.util.Log.e("xxxx","uuid:"+deviceUuid.toString());
+		Log.e("xxxx","uuid:"+deviceUuid.toString());
 		return deviceUuid.toString();
 	}
 	/**
@@ -175,11 +176,13 @@ public class DeviceAuthIdUtil {
 	 * @return
 	 */
 	public static String getDeviceId(Context mContext){
-		mMac = DeviceAuthIdUtil.getMacid(mContext);
-		mImei = DeviceAuthIdUtil.getIMEI(mContext);
-		mIMSI = DeviceAuthIdUtil.getIMSI(mContext);
-		mUUId = DeviceAuthIdUtil.getUniqueID(mContext);
+		mMac = com.jieyun.ptm.utils.DeviceAuthIdUtil.getMacid(mContext);
+		mImei = com.jieyun.ptm.utils.DeviceAuthIdUtil.getIMEI(mContext);
+		mIMSI = com.jieyun.ptm.utils.DeviceAuthIdUtil.getIMSI(mContext);
+		mUUId = com.jieyun.ptm.utils.DeviceAuthIdUtil.getUniqueID(mContext);
+
 		String mBeforeLongID =  mImei + mMac + mIMSI+mUUId;
+		Log.e("xxxx","加密前的值："+mBeforeLongID);
 		MessageDigest m = null;
 		try {
 			m = MessageDigest.getInstance("MD5");
@@ -201,7 +204,7 @@ public class DeviceAuthIdUtil {
 		}
 		// hex string to uppercase
 		mAfterLongID = mAfterLongID.toUpperCase();
-		android.util.Log.e("xxxx","设备Id加密值："+mAfterLongID);
+		Log.e("xxxx","设备Id加密值："+mAfterLongID);
 		return mAfterLongID;
 	}
 
