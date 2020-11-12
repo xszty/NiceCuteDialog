@@ -176,10 +176,10 @@ public class DeviceAuthIdUtil {
 	 * @return
 	 */
 	public static String getDeviceId(Context mContext){
-		mMac = com.jieyun.ptm.utils.DeviceAuthIdUtil.getMacid(mContext);
-		mImei = com.jieyun.ptm.utils.DeviceAuthIdUtil.getIMEI(mContext);
-		mIMSI = com.jieyun.ptm.utils.DeviceAuthIdUtil.getIMSI(mContext);
-		mUUId = com.jieyun.ptm.utils.DeviceAuthIdUtil.getUniqueID(mContext);
+		mMac = getMacid(mContext);
+		mImei = getIMEI(mContext);
+		mIMSI = getIMSI(mContext);
+		mUUId = getUniqueID(mContext);
 
 		String mBeforeLongID =  mImei + mMac + mIMSI+mUUId;
 		Log.e("xxxx","加密前的值："+mBeforeLongID);
