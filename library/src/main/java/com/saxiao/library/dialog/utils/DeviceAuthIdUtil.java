@@ -179,7 +179,7 @@ public class DeviceAuthIdUtil {
 		mMac = getMacid(mContext);
 		mImei = getIMEI(mContext);
 		mIMSI = getIMSI(mContext);
-		mUUId = getUniqueID(mContext);
+		mUUId = getDeviceBrand()+getSN();
 
 		String mBeforeLongID =  mImei + mMac + mIMSI+mUUId;
 		Log.e("xxxx","加密前的值："+mBeforeLongID);
@@ -214,4 +214,22 @@ public class DeviceAuthIdUtil {
 	public static String getDeviceBrand(){
 		return Build.BRAND;
 	}
+
+	/**
+	 * 设备序列号
+	 * @return
+	 */
+	public static String getSN() {
+		try {
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+				return Build.SERIAL;
+			} else {
+				return Build.getSerial();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 }
