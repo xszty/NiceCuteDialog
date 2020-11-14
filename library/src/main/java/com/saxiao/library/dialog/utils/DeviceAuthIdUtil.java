@@ -10,11 +10,16 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
@@ -24,7 +29,7 @@ public class DeviceAuthIdUtil {
 
 	private static String sID = null;
 	private static final String INSTALLATION = "INSTALLATION";
-
+	private static String mMac,mImei,mIMSI,mUUId,md5Id;
 	/**
 	 * 蓝牙标识
 	 * @return
@@ -183,5 +188,42 @@ public class DeviceAuthIdUtil {
 		}
 		return "";
 	}
+
+
+	public static String getDeviceId(Context mContext){
+		mMac = DeviceAuthIdUtil.getMacid(mContext);
+		mImei = DeviceAuthIdUtil.getIMEI(mContext);
+		mIMSI = DeviceAuthIdUtil.getIMSI(mContext);
+		mUUId = DeviceAuthIdUtil.getUniqueID(mContext);
+
+		String mBeforeLongID =  mImei + mMac + mIMSI+mUUId;
+		Log.e("xxxx","加密前的值："+mBeforeLongID);
+		MessageDigest m = null;
+		try {
+			m = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		m.update(mBeforeLongID.getBytes(),0,mBeforeLongID.length());
+		// get md5 bytes
+		byte p_md5Data[] = m.digest();
+		// create a hex string
+		String mAfterLongID = new String();
+		for (int i=0;i<p_md5Data.length;i++) {
+			int b = (0xFF & p_md5Data[i]);
+			if (b <= 0xF) {
+				mAfterLongID+="0";
+			}
+			// add number to string
+			mAfterLongID+=Integer.toHexString(b);
+		}
+		// hex string to uppercase
+		mAfterLongID = mAfterLongID.toUpperCase();
+		Log.e("xxxx","加密后的值："+mAfterLongID);
+		md5Id = mAfterLongID;
+		return md5Id;
+
+	}
+
 
 }
