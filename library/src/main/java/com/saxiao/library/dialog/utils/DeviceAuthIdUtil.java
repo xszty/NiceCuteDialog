@@ -5,19 +5,16 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
@@ -27,7 +24,6 @@ public class DeviceAuthIdUtil {
 
 	private static String sID = null;
 	private static final String INSTALLATION = "INSTALLATION";
-	private static String mMac,mImei,mUUId,mIMSI;
 
 	/**
 	 * 蓝牙标识
@@ -46,9 +42,9 @@ public class DeviceAuthIdUtil {
 	 * @return
 	 */
 	public static String getMacid(Context context) {
-		WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		String WLANMAC = wm.getConnectionInfo().getMacAddress();
-		return WLANMAC;
+		//WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		//String WLANMAC = wm.getConnectionInfo().getMacAddress();
+		return "02:00:00:00";
 	}
 
 	/**
@@ -56,22 +52,21 @@ public class DeviceAuthIdUtil {
 	 * @param context
 	 * @return
 	 */
-	@SuppressLint("MissingPermission")
-	public static String getIMEI(Context context) {
+	@SuppressLint("MissingPermission") public static String getIMEI(Context context) {
 		TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 		try {
 			Method method = manager.getClass().getMethod("getImei", int.class);
 			String imei1 = (String) method.invoke(manager, 0);
 			String imei2 = (String) method.invoke(manager, 1);
-			if(TextUtils.isEmpty(imei2)){
+			if (TextUtils.isEmpty(imei2)) {
 				return imei1;
 			}
-			if(!TextUtils.isEmpty(imei1)){
+			if (!TextUtils.isEmpty(imei1)) {
 				//因为手机卡插在不同位置，获取到的imei1和imei2值会交换，所以取它们的最小值,保证拿到的imei都是同一个
 				String imei = "";
-				if(imei1.compareTo(imei2) <= 0){
+				if (imei1.compareTo(imei2) <= 0) {
 					imei = imei1;
-				}else{
+				} else {
 					imei = imei2;
 				}
 				return imei;
@@ -87,13 +82,13 @@ public class DeviceAuthIdUtil {
 	/**
 	 * 获取手机IMSI
 	 */
-	public static String getIMSI(Context context){
+	public static String getIMSI(Context context) {
 		try {
-			TelephonyManager telephonyManager=(TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+			TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 			//获取IMSI号
-			String imsi=telephonyManager.getSubscriberId();
-			if(null==imsi){
-				imsi="111";
+			String imsi = telephonyManager.getSubscriberId();
+			if (null == imsi) {
+				imsi = "111";
 			}
 			return imsi;
 		} catch (Exception e) {
@@ -101,7 +96,6 @@ public class DeviceAuthIdUtil {
 			return "111";
 		}
 	}
-
 
 	/**
 	 * InstalltionId
@@ -132,16 +126,12 @@ public class DeviceAuthIdUtil {
 		return new String(bytes);
 	}
 
-
-
 	private static void writeInstallationFile(File installation) throws IOException {
 		FileOutputStream out = new FileOutputStream(installation);
 		String id = UUID.randomUUID().toString();
 		out.write(id.getBytes());
 		out.close();
 	}
-
-
 
 	/**
 	 * 得到全局唯一UUID,有权限时,不可变的
@@ -153,15 +143,11 @@ public class DeviceAuthIdUtil {
 
 		}
 		final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		final String tmDevice, tmSerial, androidId;
+		final String tmDevice;
 		tmDevice = "" + tm.getDeviceId();
-		tmSerial = "" + tm.getSimSerialNumber();
-		androidId = "" + android.provider.Settings.Secure.getString(context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-
-		UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
-		Log.e("xxxx","uuid:"+deviceUuid.toString());
-		return deviceUuid.toString();
+		return tmDevice;
 	}
+
 	/**
 	 * 得到全局唯一UUID,无权限时通过UUID.randomUUID().toString()随机产生一个UUID
 	 * 可变的
@@ -170,48 +156,14 @@ public class DeviceAuthIdUtil {
 		return UUID.randomUUID().toString();
 	}
 
-	/**
-	 * 获取设备的id
-	 * @param mContext
-	 * @return
-	 */
-	public static String getDeviceId(Context mContext){
-		mMac = getMacid(mContext);
-		mImei = getIMEI(mContext);
-		mIMSI = getIMSI(mContext);
-		mUUId = getDeviceBrand()+getSN();
-
-		String mBeforeLongID =  mImei + mMac + mIMSI+mUUId;
-		Log.e("xxxx","加密前的值："+mBeforeLongID);
-		MessageDigest m = null;
-		try {
-			m = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		m.update(mBeforeLongID.getBytes(),0,mBeforeLongID.length());
-		// get md5 bytes
-		byte p_md5Data[] = m.digest();
-		// create a hex string
-		String mAfterLongID = new String();
-		for (int i=0;i<p_md5Data.length;i++) {
-			int b = (0xFF & p_md5Data[i]);
-			if (b <= 0xF) {
-				mAfterLongID+="0";
-			}
-			// add number to string
-			mAfterLongID+=Integer.toHexString(b);
-		}
-		// hex string to uppercase
-		mAfterLongID = mAfterLongID.toUpperCase();
-		Log.e("xxxx","设备Id加密值："+mAfterLongID);
-		return mAfterLongID;
+	public static String getAndroidId(Context context) {
+		return Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
 	}
 
 	/**
 	 * 获取手机厂商
 	 */
-	public static String getDeviceBrand(){
+	public static String getDeviceBrand() {
 		return Build.BRAND;
 	}
 
