@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.saxiao.library.R;
+import com.saxiao.library.dialog.utils.ButtonUtils;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -593,6 +594,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 
 	@Override
 	public void onClick(View v) {
+		if (ButtonUtils.isFastDoubleClick(R.id.center, 2000)) {
+			return;
+		}
 		if (v.getId() == R.id.cancel_button) {
 			if (mCancelClickListener != null) {
 				mCancelClickListener.onClick(SweetAlertDialog.this,false);
