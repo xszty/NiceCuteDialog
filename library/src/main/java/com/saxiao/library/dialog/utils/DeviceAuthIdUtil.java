@@ -11,15 +11,16 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
+import java.net.NetworkInterface;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -47,10 +48,28 @@ public class DeviceAuthIdUtil {
 	 * @return
 	 */
 	public static String getMacid(Context context) {
-		//WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		//String WLANMAC = wm.getConnectionInfo().getMacAddress();
-		return "02:00:00:00";
+		try {
+			List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+			for (NetworkInterface nif : all) {
+				if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+				byte[] macBytes = nif.getHardwareAddress();
+				if (macBytes == null) {
+					return "";
+				}
+				StringBuilder res1 = new StringBuilder();
+				for (byte b : macBytes) {
+					res1.append(String.format("%02X:",b));
+				}
+				if (res1.length() > 0) {
+					res1.deleteCharAt(res1.length() - 1);
+				}
+				return res1.toString();
+			}
+		} catch (Exception ex) {
+		}
+		return "02:00:00:00:00:00";
 	}
+
 
 	/**
 	 * IMEI
