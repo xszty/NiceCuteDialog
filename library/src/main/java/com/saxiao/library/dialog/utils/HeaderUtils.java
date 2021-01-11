@@ -11,15 +11,15 @@ import java.util.TreeMap;
  * 传参加密
  */
 public class HeaderUtils {
-
-	private static String appId = "MIIB4jANBgkqhkiG9w0BAQEFAAOCAc8AMIIBygKCAcEAx0XNnyr441eRLR3YwVbz1OPMvmwhVlAWk0DXYWnH7OEMV9hfyxg/J9OkxzyIiIRqJJcddq9WK+phL9AhoQy/";
-	private static String secretKey = "33P3UYx24Z68Aj7jaydmL/Hf37SvkgViW8lOPaH+nVngI4q7f6AJK/Rhcd1ZvDXwracjHSkN+ZrQTL+9Losle+h10yn0TjVsTex3w9J0ctkFt4lsGvPgsUy/DrAV/LNq64O4GDN8dxyp3LBbHZvQZqeXUk3+wcoWn5q3LVcgeLtdUSGtficSPPs1CIlEA40r2qJPxtY+JXNyZJmcgLmnl6RoLgWT0lj36QcsDaKAg50VVzBkf+BBaZg8JDr5f3gsj4qcZuJhqm0cbhMdAT9+KmONPwFdVZDGucda2Es0EJGDtbzpRJDfi6bCoy+VBPJTEGzfufNqnj2+bedhbZLWJvEOYN2bpAnkbA4JuWVg/chHL1YR3YoN4irpQ3r8aUjR/+za/vmsyZYK6Fu95Xowk0qza5YT0mfWvoQkQbH8Tdm++K3AECZ2cSLt5drzZmJCoGyeGVUwhEAF5+RfD2dPTxetFvap5E7tTy9iBOj4rNa40JN0HA1dq7ltrzXgthNh";
-	private String _f = "";
-	private String _t = "";
-	private String _n = "";
-
-
-	public static String sortAndSha1(String _f,String _n,String _t){
+	/**
+	 * 排序并取Sha1值
+	 * @param secretKey
+	 * @param _f
+	 * @param _n
+	 * @param _t
+	 * @return
+	 */
+	public static String sortAndSha1(String secretKey,String _f,String _n,String _t){
 		SortedMap<String,Object> map = new TreeMap<>();
 		map.put(secretKey,"1");
 		map.put(_f,"2");
@@ -70,7 +70,7 @@ public class HeaderUtils {
 	 * appId的base64
 	 * @return
 	 */
-	public static String encode() {
+	public static String encode(String appId) {
 		return Base64.encodeToString(appId.getBytes(), Base64.DEFAULT);
 	}
 
