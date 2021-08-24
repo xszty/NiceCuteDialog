@@ -10,3 +10,5 @@ public enum SweetAlertType {
     PROGRESS_TYPE,
 	SEARCH_TYPE
 }
+
+

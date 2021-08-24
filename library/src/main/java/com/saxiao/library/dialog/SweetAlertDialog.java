@@ -830,6 +830,8 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		return view;
 	}
 
+
+
 	/**
 	 * 初始化下拉框控件
 	 */
@@ -861,6 +863,8 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		return view;
 	}
 
+
+
 	/**
 	 * 初始化日期控件
 	 */
@@ -890,4 +894,5 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
 		});
 		return view;
 	}
+
 }

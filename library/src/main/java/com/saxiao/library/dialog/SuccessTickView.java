@@ -119,4 +119,8 @@ public class SuccessTickView extends View {
         tickAnim.setStartOffset(100);
         startAnimation(tickAnim);
     }
+
+	/*
+
+	 */
 }
