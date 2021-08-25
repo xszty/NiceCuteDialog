@@ -22,7 +22,7 @@ public class WebService extends Service {
 		super.onCreate();
 		mAssetManager = getAssets();
 		builder = AndServer.serverBuilder()
-			.website(new AssetsWebsite(mAssetManager,""))
+			.website(new AssetsWebsite(mAssetManager,"web"))
 			.inetAddress(NetUtils.getLocalIPAddress()) //服务器要监听的网络地址
 			.port(Constant.PORT_SERVER)
 			.timeout(10, TimeUnit.SECONDS)

@@ -14,6 +14,12 @@ public class GetRequestIntercept implements RequestHandler {
 	protected JsonObject jsonObject;
 	@RequestMapping(method = { RequestMethod.POST})
 	@Override public void handle(HttpRequest request, HttpResponse response, HttpContext context) throws HttpException, IOException {
+		//response.setHeader("Access-Control-Allow-Origin", "*");
+		//// 允许的访问方法
+		//response.setHeader("Access-Control-Allow-Methods","POST, GET, PUT, OPTIONS, DELETE, PATCH");
+		//// Access-Control-Max-Age 用于 CORS 相关配置的缓存
+		//response.setHeader("Access-Control-Max-Age", "3600");
+		//response.setHeader("Access-Control-Allow-Headers","token,Origin, X-Requested-With, Content-Type, Accept");
 		jsonObject = new JsonObject();
 		try {
 			jsonObject.addProperty("code",0);

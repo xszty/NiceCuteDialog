@@ -215,7 +215,7 @@ public class DeviceAuthIdUtil {
 		mImei = DeviceAuthIdUtil.getIMEI(mContext);
 		mIMSI = DeviceAuthIdUtil.getIMSI(mContext);
 		mUUId = DeviceAuthIdUtil.getUniqueID(mContext);
-		Log.e
+
 		String mBeforeLongID =  mImei + mMac + mIMSI+mUUId;
 		Log.e("xxxx","加密前的值："+mBeforeLongID);
 		MessageDigest m = null;
